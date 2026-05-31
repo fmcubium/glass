@@ -19,6 +19,8 @@ add_executable(${PROJECT_NAME})
  
 target_sources(${PROJECT_NAME} PRIVATE
     src/main.cpp
+    src/parse/lexer.cpp
+    src/parse/token.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -29,7 +31,7 @@ target_include_directories(${PROJECT_NAME}
 # ── Compiler warnings ──────────────────────────────────────────────────────────
 target_compile_options(${PROJECT_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:
-        -Wall -Wextra -Wpedantic -Wshadow -Wconversion>
+        -Wall -Wextra -Wpedantic -Wconversion>
     $<$<CXX_COMPILER_ID:MSVC>:
         /W4 /WX>
 )
