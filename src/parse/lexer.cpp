@@ -24,3 +24,16 @@ void Lexer::lexComment() {
     
     input = input.substr(len);
 }
+
+void Lexer::lexIdentifier() {
+    if(input.empty() || (!Lexer::isTrait(input[0], Lexer::Alpha) && input[0] != '_'))
+        throw std::logic_error("Failure to meet function precondition");
+
+    std::size_t len = 1;
+    while(len < input.size() && (Lexer::isTrait(input[len], Lexer::Alpha | Lexer::Digit) || input[len] == '_'))
+        len++;
+    
+    Token t(Token::Identifier, input.substr(0, len));
+    tokens.push_back(t);
+    input = input.substr(len);
+}

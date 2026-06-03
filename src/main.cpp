@@ -3,8 +3,22 @@
 #include <vector>
 #include <memory>
 #include <thread>
+#include <fstream>
+#include <sstream>
+
+#include "parse/ast.h"
 
 #define DEBUG //to be moved to a debug header later
+
+void parse(std::vector<ast::Module>& modules, std::string filename, std::size_t index) {
+    std::ifstream file(filename);
+    if(!file.is_open())
+        throw std::runtime_error("Inputted glass source file not found.");
+
+    std::ostringstream sourceStream;
+    sourceStream << file.rdbuf();
+    std::string source = sourceStream.str();
+}
 
 int main(int argc, char** argv) {
     // #ifdef DEBUG
