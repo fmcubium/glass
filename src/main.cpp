@@ -6,18 +6,22 @@
 #include <fstream>
 #include <sstream>
 
+#include "glass_error.h"
 #include "parse/ast.h"
+#include "parse/lexer.h"
 
 #define DEBUG //to be moved to a debug header later
 
-void parse(std::vector<ast::Module>& modules, std::string filename, std::size_t index) {
+void parse(std::vector<Ast::Module>& modules, std::string filename, std::size_t index) {
     std::ifstream file(filename);
     if(!file.is_open())
-        throw std::runtime_error("Inputted glass source file not found.");
+        throw GlassError::LoadError("Inputted glass source file not found.");
 
-    std::ostringstream sourceStream;
-    sourceStream << file.rdbuf();
-    std::string source = sourceStream.str();
+    std::ostringstream srcStream;
+    srcStream << file.rdbuf();
+
+    Lexer lexer(srcStream.str());
+    std::vector<Token> tokens = lexer.lex();
 }
 
 int main(int argc, char** argv) {
@@ -31,12 +35,19 @@ int main(int argc, char** argv) {
 
     std::vector<std::string> filenames;
     std::string suffix = ".gls";
-    for(int i = 1; i < argc; i++) {
-        std::string temp = argv[i];
-        if(!(temp.size() >= suffix.size() && temp.compare(temp.size() - suffix.size(), suffix.size(), suffix) == 0))
-            throw std::runtime_error("Inputted file is not a Glass source file.");
+    
+    try {
+        for(int i = 1; i < argc; i++) {
+            std::string temp = argv[i];
+            if(!(temp.size() >= suffix.size() && temp.compare(temp.size() - suffix.size(), suffix.size(), suffix) == 0))
+                throw GlassError::LoadError("Inputted file is not a Glass source file.");
 
-        // TODO: This will handle directories in the future, but not right now.
-        filenames.push_back(temp);
+            // TODO: This will handle directories in the future, but not right now.
+            filenames.push_back(temp);
+        }
+
+
+    } catch(GlassError::LoadError& e) {
+        std::cout << "Loading Error: " << e.what() << std::endl;
     }
 }

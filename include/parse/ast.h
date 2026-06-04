@@ -1,7 +1,9 @@
+#pragma once
+
 #include <string>
 #include <vector>
 
-namespace ast {
+namespace Ast {
     class Module {
         // Hooray placeholder
     };
