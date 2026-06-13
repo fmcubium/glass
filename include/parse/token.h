@@ -8,7 +8,7 @@ public:
     enum Type {
         Identifier,
         IntLiteral,
-        DecLiteral,
+        FloatLiteral,
         Operator,
         CharLiteral,
         StringLiteral,

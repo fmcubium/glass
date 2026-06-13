@@ -20,8 +20,8 @@ void parse(std::vector<Ast::Module>& modules, std::string filename, std::size_t 
     std::ostringstream srcStream;
     srcStream << file.rdbuf();
 
-    Lexer lexer(srcStream.str());
-    std::vector<Token> tokens = lexer.lex();
+    // Lexer lexer(srcStream.str());
+    // std::vector<Token> tokens = lexer.lex();
 }
 
 int main(int argc, char** argv) {

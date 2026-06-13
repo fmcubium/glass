@@ -1,0 +1,46 @@
+scanning functions:
+
+whitespace: [\n\r\t]+
+comment: //[^\n\r]* <OR> /\*[\s\S]*\*/
+
+identifier: [A-Za-z_][A-Za-z0-9_]*
+number: [+-]?[0-9]+(\.[0-9]+)?(e[+-]?[0-9]+)?
+operator: -> | ++ | -- | \. | [+-\*/<>!=&\|~%\^]=?
+character: \'[^\'\n\r\t]'  => if \, escape seq
+string: "[^"\n\r\t]*" => if \, escape seq
+miscellaneous: anything else
+
+escapes: [nrt'"\]
+
+character types:
+
+alpha: QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm
+digit: 1234567890
+space: <SPACE> \n \t \r
+operator: =+-/*<>!&|~%^
+separator: ,:;
+bracket: ()[]{}
+
+identifier: (alpha | under)(alpha | digit | under)*
+number: (+ | -)? digit+ (. digit+)? ('e' (+ | -)? digit+)?
+operator:  -> OR ++ OR -- OR dot OR operator =?
+
+
+token types:
+
+Identifier
+IntLiteral
+DecLiteral
+Operator
+CharLiteral
+StringLiteral
+Miscellaneous
+
+
+
+Reserved Keywords (TBD):
+
+
+Code Types (TBD)
+LiteralExpr: IntLiteral | DecLiteral | CharLiteral | StringLiteral
+
